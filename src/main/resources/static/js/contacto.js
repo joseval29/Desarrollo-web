@@ -7,23 +7,26 @@ function validarFormulario() {
     const asunto = document.getElementById("asunto").value;
     const mensaje = document.getElementById("mensaje").value.trim();
 
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const regexTelefono = /^[0-9]{7,15}$/;
+
     if (nombre.length < 3) {
         alert("El nombre debe tener al menos 3 caracteres.");
         valido = false;
     }
 
-    if (!correo.includes("@") || !correo.includes(".")) {
+    if (!regexEmail.test(correo)) {
         alert("Ingrese un correo electrónico válido.");
         valido = false;
     }
 
-    if (!/^[0-9]{7,15}$/.test(telefono)) {
+    if (!regexTelefono.test(telefono)) {
         alert("El teléfono debe contener solo números (7 a 15 dígitos).");
         valido = false;
     }
 
-    if (asunto === "") {
-        alert("Debe seleccionar un asunto.");
+    if (asunto === "default") {
+        alert("Debe seleccionar un asunto válido.");
         valido = false;
     }
 
@@ -32,10 +35,20 @@ function validarFormulario() {
         valido = false;
     }
 
+    if (valido) {
+        document.getElementById("form-contacto").classList.add("form-valido");
+    }
+
     return valido;
 }
 
 function contarCaracteres() {
-    const mensaje = document.getElementById("mensaje").value.length;
-    document.getElementById("contador").innerText = mensaje + " / 400";
+    const longitud = document.getElementById("mensaje").value.length;
+    const contador = document.getElementById("contador");
+
+    if (longitud < 20) {
+        contador.innerText = `Te faltan ${20 - longitud} caracteres para el mínimo`;
+    } else {
+        contador.innerText = `${longitud} / 400`;
+    }
 }
