@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Wiki</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+<div th:replace="fragments/menu :: menu"></div>
+
+<main>
+    <section th:each="pagina : ${paginas}">
+        <h2 th:text="${pagina.titulo}"></h2>
+        <p th:text="${pagina.contenido}"></p>
+    </section>
+</main>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>
